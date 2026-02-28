@@ -1,0 +1,57 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Fix blank-screen on /operations/user-management with loading state and timeout failsafe",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Replace all blank/early returns with a visible loading state that shows 'User Management' title and 'Loading permissions & users...' message with spinner while roleLoading or backendLoading are true",
+      "acceptanceCriteria": [
+        "No `return null` or empty returns exist in the component while roleLoading or backendLoading are true",
+        "During loading, the page layout and nav remain visible",
+        "A centered loading state is shown with the title 'User Management' and message 'Loading permissions & users...' along with a spinner"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/Operations/UserManagement.tsx",
+          "operation": "modify",
+          "description": "Remove all `return null` or blank returns that occur while `roleLoading` or `backendLoading` are true. Replace with a visible centered loading UI that renders the page title 'User Management' in an h1 element, followed by a centered container with the message 'Loading permissions & users...' and a spinner component (use LoadingSpinner from frontend/src/components/common/LoadingState.tsx or a simple animated div). Ensure the AppLayout wrapper and navigation remain visible during this loading state."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Add an 8-second timeout failsafe that forcibly clears loading states and displays an error message with debug output if loading is still true after 8000ms",
+      "acceptanceCriteria": [
+        "A timeout of 8000ms is started when the component mounts or loading begins",
+        "If loading is still true after 8 seconds, both roleLoading and backendLoading are set to false",
+        "A visible error box is rendered with the text 'Still loading role/backend after 8s. Please refresh.'",
+        "The error box includes debug output showing the boolean values of roleLoading and backendLoading at timeout time",
+        "The timeout is cleared if loading completes before 8 seconds"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/Operations/UserManagement.tsx",
+          "operation": "modify",
+          "description": "Add a useEffect hook that starts an 8000ms timeout when the component mounts. Store the timeout ID in a ref. In the timeout callback, check if `roleLoading` or `backendLoading` is still true. If so, capture their current boolean values, then forcibly call `setRoleLoading(false)` and `setBackendLoading(false)`. Set a new error state variable (e.g., `timeoutError`) to an object containing the captured boolean values. In the JSX, if `timeoutError` is set, render a visible error box (use a Card or Alert component styled with error/warning colors) containing the message 'Still loading role/backend after 8s. Please refresh.' followed by debug output displaying the captured roleLoading and backendLoading boolean values. In the useEffect cleanup function, clear the timeout to prevent memory leaks."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Wrap every async load path in try/finally blocks to guarantee that loading states are always reset to false in the finally clause, preventing stuck loading states",
+      "acceptanceCriteria": [
+        "Every async function or effect that sets roleLoading or backendLoading to true wraps its logic in try/finally",
+        "The finally block always calls setRoleLoading(false) and/or setBackendLoading(false) as appropriate",
+        "If an async call throws an error, loading state is still reset to false"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/Operations/UserManagement.tsx",
+          "operation": "modify",
+          "description": "Identify all async functions and useEffect hooks that call `setRoleLoading(true)` or `setBackendLoading(true)`. Wrap each async operation's logic in a try/finally block. Move the `setRoleLoading(false)` or `setBackendLoading(false)` calls into the finally clause to ensure they execute regardless of success or error. If error handling logic exists in a catch block, preserve it, but ensure the loading state reset happens in finally. This ensures that even if a query fails or an exception is thrown, the loading spinner will not persist indefinitely."
+        }
+      ]
+    }
+  ]
+}

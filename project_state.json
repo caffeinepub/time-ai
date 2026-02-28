@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Web application with an operations/user-management page. Fixing blank-screen issue caused by return null during loading states.",
+  "architectural_notes": [
+    "On /operations/user-management: no return null during roleLoading/backendLoading; always render visible loading state with layout+nav intact",
+    "User-management page has 8s hard timeout failsafe: forces loading false and shows error box with debug booleans if still loading after 8s",
+    "All async load paths on user-management page wrap setRoleLoading/setBackendLoading in finally{} blocks"
+  ],
+  "known_issues": [],
+  "isFixRequest": true,
+  "existing_features": [
+    {
+      "id": "feature-in-frontend-src-pages-operations-usermanagement-tsx-remove-all-return-null-and-blank-early-returns-that-occur-while-roleloading-or-backendloading-are-true-instead-render-a-visible-centered-loading-state-that-keeps-the-page-layout-and-nav-visible-displaying-the-title-user-management-and-the-message-loading-permissions-users-with-an-optional-small-spinner",
+      "title": "In `frontend/src/pages/Operations/UserManagement.tsx`, remove all `return null` and blank/early returns that occur while `roleLoading` or `backendLoading` are true. Instead, render a visible centered loading state that keeps the page layout and nav visible, displaying the title 'User Management' and the message 'Loading permissions & users...' with an optional small spinner.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-frontend-src-pages-operations-usermanagement-tsx-add-an-8-second-hard-timeout-failsafe-start-a-timer-when-loading-begins-if-roleloading-or-backendloading-is-still-true-after-8000ms-forcibly-set-both-to-false-and-display-a-visible-error-box-with-the-message-still-loading-role-backend-after-8s-please-refresh-and-include-debug-output-showing-the-current-boolean-values-of-roleloading-and-backendloading",
+      "title": "In `frontend/src/pages/Operations/UserManagement.tsx`, add an 8-second hard timeout failsafe: start a timer when loading begins; if `roleLoading` or `backendLoading` is still true after 8000ms, forcibly set both to false and display a visible error box with the message: 'Still loading role/backend after 8s. Please refresh.' and include debug output showing the current boolean values of `roleLoading` and `backendLoading`.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-frontend-src-pages-operations-usermanagement-tsx-wrap-every-async-load-path-in-a-try-finally-block-to-guarantee-that-setroleloading-false-and-setbackendloading-false-are-always-called-in-the-finally-clause-preventing-the-loading-state-from-getting-stuck-indefinitely-regardless-of-success-or-error",
+      "title": "In `frontend/src/pages/Operations/UserManagement.tsx`, wrap every async load path in a `try/finally` block to guarantee that `setRoleLoading(false)` and `setBackendLoading(false)` are always called in the `finally` clause, preventing the loading state from getting stuck indefinitely regardless of success or error.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [],
+  "gameProjectType": "none",
+  "projectName": "Fix blank-screen on /operations/user-management with loading state and timeout failsafe",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --radius: 0.5rem;
+        
+        /* TIME AI brand palette - Light mode */
+        /* Professional finance/time aesthetic with gold accents */
+        --background: 0.98 0.005 240;
+        --foreground: 0.20 0.015 240;
+        
+        --card: 1 0 0;
+        --card-foreground: 0.20 0.015 240;
+        
+        --popover: 1 0 0;
+        --popover-foreground: 0.20 0.015 240;
+        
+        /* Deep navy primary for trust and professionalism */
+        --primary: 0.35 0.08 250;
+        --primary-foreground: 0.98 0.005 240;
+        
+        /* Warm gold secondary for time/money association */
+        --secondary: 0.88 0.04 80;
+        --secondary-foreground: 0.25 0.03 80;
+        
+        /* Cool neutral muted */
+        --muted: 0.95 0.005 240;
+        --muted-foreground: 0.50 0.012 240;
+        
+        /* Amber accent for highlights and CTAs */
+        --accent: 0.75 0.15 60;
+        --accent-foreground: 0.15 0.02 60;
+        
+        --destructive: 0.55 0.20 25;
+        --destructive-foreground: 0.98 0.005 240;
+        
+        --border: 0.90 0.005 240;
+        --input: 0.90 0.005 240;
+        --ring: 0.75 0.15 60;
+        
+        --chart-1: 0.60 0.12 250;
+        --chart-2: 0.70 0.14 60;
+        --chart-3: 0.65 0.10 200;
+        --chart-4: 0.55 0.15 80;
+        --chart-5: 0.62 0.12 260;
+        
+        --sidebar: 0.98 0.005 240;
+        --sidebar-foreground: 0.20 0.015 240;
+        --sidebar-primary: 0.35 0.08 250;
+        --sidebar-primary-foreground: 0.98 0.005 240;
+        --sidebar-accent: 0.88 0.04 80;
+        --sidebar-accent-foreground: 0.25 0.03 80;
+        --sidebar-border: 0.90 0.005 240;
+        --sidebar-ring: 0.75 0.15 60;
+    }
+
+    .dark {
+        /* Dark mode - sophisticated finance aesthetic */
+        --background: 0.15 0.015 240;
+        --foreground: 0.95 0.008 240;
+        
+        --card: 0.20 0.018 240;
+        --card-foreground: 0.95 0.008 240;
+        
+        --popover: 0.18 0.016 240;
+        --popover-foreground: 0.95 0.008 240;
+        
+        /* Lighter navy for dark mode visibility */
+        --primary: 0.55 0.12 250;
+        --primary-foreground: 0.98 0.005 240;
+        
+        --secondary: 0.30 0.025 80;
+        --secondary-foreground: 0.95 0.008 80;
+        
+        --muted: 0.25 0.015 240;
+        --muted-foreground: 0.65 0.010 240;
+        
+        --accent: 0.65 0.18 60;
+        --accent-foreground: 0.98 0.005 60;
+        
+        --destructive: 0.60 0.18 25;
+        --destructive-foreground: 0.95 0.008 240;
+        
+        --border: 0.30 0.015 240;
+        --input: 0.30 0.015 240;
+        --ring: 0.65 0.18 60;
+        
+        --chart-1: 0.60 0.14 250;
+        --chart-2: 0.70 0.16 60;
+        --chart-3: 0.65 0.12 200;
+        --chart-4: 0.58 0.18 80;
+        --chart-5: 0.62 0.14 260;
+        
+        --sidebar: 0.18 0.016 240;
+        --sidebar-foreground: 0.95 0.008 240;
+        --sidebar-primary: 0.55 0.12 250;
+        --sidebar-primary-foreground: 0.98 0.005 240;
+        --sidebar-accent: 0.30 0.025 80;
+        --sidebar-accent-foreground: 0.95 0.008 80;
+        --sidebar-border: 0.30 0.015 240;
+        --sidebar-ring: 0.65 0.18 60;
+    }
+
+    * {
+        @apply border-border;
+    }
+    
+    html,
+    body {
+        @apply bg-background text-foreground antialiased;
+        font-feature-settings: "rlig" 1, "calt" 1;
+        overflow-x: hidden;
+        max-width: 100vw;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-semibold tracking-tight;
+    }
+    
+    code {
+        @apply font-mono;
+    }
+}

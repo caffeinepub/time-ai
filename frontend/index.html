@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TIME AI</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      // Pre-React hash redirect: rewrite non-hash URLs to hash routes before React loads
+      (function() {
+        const { pathname, search, hash } = window.location;
+        
+        // Skip if already on a hash route
+        if (hash) return;
+        
+        // Skip if at root path
+        if (pathname === '/' || pathname === '') return;
+        
+        // Skip if pathname looks like a file/asset (ends with file extension)
+        const lastSegment = pathname.split('/').pop() || '';
+        if (lastSegment.includes('.')) return;
+        
+        // Redirect to hash-based route
+        const hashRoute = '/#' + pathname + search;
+        window.location.replace(hashRoute);
+      })();
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

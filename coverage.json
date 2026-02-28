@@ -1,0 +1,59 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-28T17:38:44.085Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 3,
+    "implemented": 3,
+    "items": [
+      {
+        "id": "REQ-1",
+        "summary": "In `frontend/src/pages/Operations/UserManagement.tsx`, remove all `return null` and blank/early returns that occur while `roleLoading` or `backendLoading` are true. Instead, render a visible centered loading state that keeps the page layout and nav visible, displaying the title 'User Management' and the message 'Loading permissions & users...' with an optional small spinner.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/Operations/UserManagement.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/Operations/UserManagement.tsx"
+        ]
+      },
+      {
+        "id": "REQ-2",
+        "summary": "In `frontend/src/pages/Operations/UserManagement.tsx`, add an 8-second hard timeout failsafe: start a timer when loading begins; if `roleLoading` or `backendLoading` is still true after 8000ms, forcibly set both to false and display a visible error box with the message: 'Still loading role/backend after 8s. Please refresh.' and include debug output showing the current boolean values of `roleLoading` and `backendLoading`.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/Operations/UserManagement.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/Operations/UserManagement.tsx"
+        ]
+      },
+      {
+        "id": "REQ-3",
+        "summary": "In `frontend/src/pages/Operations/UserManagement.tsx`, wrap every async load path in a `try/finally` block to guarantee that `setRoleLoading(false)` and `setBackendLoading(false)` are always called in the `finally` clause, preventing the loading state from getting stuck indefinitely regardless of success or error.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/Operations/UserManagement.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/Operations/UserManagement.tsx"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    "build-request.json",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/src/pages/Operations/UserManagement.tsx",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}
